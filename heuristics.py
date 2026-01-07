@@ -92,13 +92,10 @@ def classify_questions(text: str) -> int:
     if not tokens:
         return 2
 
-    while tokens and tokens[0] in remove_start:
-        tokens.pop(0)
-
-    if not tokens:
-        return 2
-
     first_token = tokens[0]
+
+    if first_token in remove_start and len(tokens) > 1:
+        first_token = tokens[1]
 
     # 0 not informative
     if first_token in negative_ptr or first_token in negative_connectors: return 0
