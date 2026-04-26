@@ -14,6 +14,13 @@ def create_table():
                        question TEXT,
                        answer TEXT);
                 ''')
+            
+            cursor.execute('''
+                CREATE TABLE IF NOT EXISTS faiss_mapping (
+                       faiss_id INTEGER PRIMARY KEY,
+                       sqlite_id INTEGER NOT NULL,
+                       FOREIGN KEY (sqlite_id) REFERENCES faq(question_id));
+                ''')
             conn.commit()
 
     except sqlite3.OperationalError as err:
@@ -35,8 +42,8 @@ def get_row(question_id : int):
         with sqlite3.connect(db_path) as conn:
             cursor = conn.cursor()
             cursor.execute('SELECT answer FROM faq WHERE question_id=?', (question_id,))
-        answer = cursor.fetchone()
-        return answer[0] if answer else None
+            answer = cursor.fetchone()
+            return answer[0] if answer else None
     
     except sqlite3.OperationalError as err:
         print(err)
