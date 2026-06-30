@@ -51,6 +51,7 @@ FAQ_autocollector/
 │
 ├── data/                         # Runtime storage for SQLite, FAISS index, and map.npy
 ├── requirements.txt              # Python dependencies
+├── ..                            # Other files contain notebooks with experiments and data labelling
 └── README.md
 ```
 
